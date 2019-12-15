@@ -26,8 +26,6 @@ inline void video_sync() {
     __endasm;
 }
 
-inline void video_set_write_addr(int addr) __z88dk_fastcall {
-    __asm
-    call SETWRT
-    __endasm;
-}
+void video_set_write_addr(int addr) __z88dk_fastcall ;
+
+void video_uncompress_tiles(char *patterns, char* colors);

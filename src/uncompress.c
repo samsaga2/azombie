@@ -11,7 +11,7 @@ void uncompress_to_vram(char* src) __z88dk_fastcall {
     inc hl
 
     // de=(buffer+256) & 0xff00 (256 bytes alignment)
-    ld de,#buffer
+    ld de,#_buffer
     inc d
     ld e,#0
 

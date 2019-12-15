@@ -8,3 +8,4 @@
 *.asm
 *.rom
 bin/
+__pycache__/
