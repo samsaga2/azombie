@@ -1,24 +1,18 @@
 #include "msxhal.h"
 #include "video.h"
+#include "player.h"
 
 USING_PAGE_A(main);
 
 void main() {
-  msxhal_init();
-  video_init();
+    msxhal_init();
+    video_init();
+    FAST_LOAD_PAGE_C(player);
+    player_init();
 
-  video_spr_define(0, 0, 32);
-  spr_attributes[SPR_ATTR_Y] = 80;
-  spr_attributes[SPR_ATTR_X] = 80;
-  spr_attributes[SPR_ATTR_PATTERN] = 0;
-  spr_attributes[SPR_ATTR_COLOR] = 15;
-  video_spr_update();
-
-  while(1) {
-      spr_attributes[SPR_ATTR_X]++;
-      video_spr_update();
-      __asm
-      halt
-      __endasm;
-  }
+    while(1) {
+        player_update();
+        video_spr_update();
+        video_sync();
+    }
 }

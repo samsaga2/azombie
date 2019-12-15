@@ -250,17 +250,13 @@ Registers: AF
 
 /*
 SETWRT
-*/
-#define SETWRT 0x0053
 
-
-/*
 Address  : #0053
 Function : Enable VDP to write
 Input    : HL - Address
 Registers: AF
 */
-#define Address 0xAddress
+#define SETWRT 0x0053
 
 
 /*

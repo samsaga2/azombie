@@ -17,9 +17,6 @@ void video_init() {
     call CHGCLR
     /* screen 2 */
     call INIGRP
-    /* sprites 16 */
-    ld bc,#0xe201
-    call WRTVDP
     /* disable key sound */
     xor a
     ld (0xf3db),a
