@@ -3,7 +3,7 @@ SDCC = sdcc $(SDCC_FLAGS)
 SPRITE = python3 scripts/sprite.py
 SCREEN = python3 scripts/screen.py
 
-OBJS = crt0msx.32k.4000.rel main.rel msxhal.rel video.rel debug.rel input.rel player.rel uncompress.rel
+OBJS = crt0msx.32k.4000.rel main.rel msxhal.rel video.rel sprites.rel debug.rel input.rel player.rel uncompress.rel
 
 all: clean bin/k5link sprites screens out.rom run
 

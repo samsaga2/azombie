@@ -1,6 +1,7 @@
 #include "msxhal.h"
 #include "video.h"
 #include "player.h"
+#include "sprites.h"
 
 USING_PAGE_A(main);
 
@@ -17,7 +18,7 @@ void main() {
 
     while(1) {
         player_update();
-        video_spr_update();
+        spr_update();
         video_sync();
     }
 }

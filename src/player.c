@@ -1,6 +1,6 @@
 #include "player.h"
 #include "input.h"
-#include "video.h"
+#include "sprites.h"
 
 #include "../pat_player_idle.h"
 #include "../pat_player_right.h"
@@ -26,12 +26,12 @@ void player_init() {
 
 
     // setup player sprite
-    video_spr_define(0, player_idle, 8);
+    spr_define(0, player_idle, 8);
     spr_attributes[SPR_ATTR_Y] = x >> 8;
     spr_attributes[SPR_ATTR_X] = y >> 8;
     spr_attributes[SPR_ATTR_PATTERN] = 0;
     spr_attributes[SPR_ATTR_COLOR] = 15;
-    video_spr_update();
+    spr_update();
     state = STATE_IDLE;
 }
 
@@ -57,17 +57,17 @@ void player_update() {
         if(speed_x < 0) {
             if(state != STATE_LEFT) {
                 state = STATE_LEFT;
-                video_spr_define(0, player_left, 8);
+                spr_define(0, player_left, 8);
             }
         } else if(speed_x > 0) {
             if(state != STATE_RIGHT) {
                 state = STATE_RIGHT;
-                video_spr_define(0, player_right, 8);
+                spr_define(0, player_right, 8);
             }
         }
     } else if(state != STATE_IDLE) {
         state = STATE_IDLE;
-        video_spr_define(0, player_idle, 8);
+        spr_define(0, player_idle, 8);
     }
 
     // move y
