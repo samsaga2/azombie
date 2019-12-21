@@ -2,6 +2,8 @@
 #include "video.h"
 #include "player.h"
 #include "sprites.h"
+#include "tiles.h"
+#include "level_test.h"
 
 USING_PAGE_A(main);
 
@@ -11,8 +13,11 @@ void main() {
     msxhal_init();
     video_init();
 
-    video_uncompress_tiles(pat_tiles, col_tiles);
+    tiles_clear();
+    tiles_uncompress(pat_tiles, col_tiles);
 
+    FAST_LOAD_PAGE_C(level_test);
+    level_test_init();
     FAST_LOAD_PAGE_C(player);
     player_init();
 

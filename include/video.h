@@ -13,5 +13,3 @@ inline void video_sync() {
 }
 
 void video_set_write_addr(int addr) __z88dk_fastcall ;
-
-void video_uncompress_tiles(char *patterns, char* colors);

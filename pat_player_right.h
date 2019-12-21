@@ -1,1 +1,1 @@
-static const uint8_t player_right[] = {0, 120, 204, 246, 246, 126, 126, 60};
+static const uint8_t pat_player_right[] = {0, 120, 252, 254, 251, 255, 255, 126};

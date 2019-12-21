@@ -9,3 +9,4 @@
 *.rom
 bin/
 __pycache__/
+*.swp

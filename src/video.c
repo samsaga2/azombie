@@ -1,16 +1,16 @@
 #include "video.h"
 #include "bios.h"
-#include "uncompress.h"
 
 void video_init() {
     __asm
-    /* color 15,0,0 */
+    /* color 0,0,15 */
     ld hl,#0xf3e9
-    ld (hl),#15
+    xor a
+    ld (hl),a
     inc hl
-    ld (hl),#0
+    ld (hl),a
     inc hl
-    ld (hl),#0
+    ld (hl),a
     call CHGCLR
     /* screen 2 */
     call INIGRP
@@ -24,22 +24,4 @@ void video_set_write_addr(int addr) __z88dk_fastcall {
     __asm
     call SETWRT
     __endasm;
-}
-
-void video_uncompress_tiles(char *patterns, char* colors) {
-    // uncompress char pattern
-    video_set_write_addr(0x0000);
-    uncompress_to_vram(patterns);
-    video_set_write_addr(0x0000+256*8);
-    uncompress_to_vram(patterns);
-    video_set_write_addr(0x0000+256*8*2);
-    uncompress_to_vram(patterns);
-
-    // uncompress char colors
-    video_set_write_addr(0x2000);
-    uncompress_to_vram(colors);
-    video_set_write_addr(0x2000+256*8);
-    uncompress_to_vram(colors);
-    video_set_write_addr(0x2000+256*8*2);
-    uncompress_to_vram(colors);
 }

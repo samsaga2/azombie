@@ -19,6 +19,6 @@ for y in range(8):
         if pixel != 0:
             row = row + (1<<(7-x))
     pattern.append(row)
-print("static const uint8_t {0}[] = {{".format(name), end='')
+print("static const uint8_t pat_{0}[] = {{".format(name), end='')
 print(", ".join([str(row) for row in pattern]), end='')
 print("};")
