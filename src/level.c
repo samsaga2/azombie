@@ -191,14 +191,12 @@ void level_decorate() {
 }
 
 void level_init() {
-  random();
-  random();
-  random();
-  random();
   tiles_uncompress(pat_tiles, col_tiles);
+}
+
+void level_random() {
   level_set_borders();
   level_gen_vroom(1, 1, 30, 22, 0);
   level_obstructed_doors();
   level_decorate();
-  tiles_draw_offscreen();
 }

@@ -10,3 +10,10 @@ char input_get_key_row(char row) __z88dk_fastcall {
   ld l,a
   __endasm;
 }
+
+char input_chget() __z88dk_fastcall {
+  __asm
+  call CHGET
+  ld l,a
+  __endasm;
+}

@@ -2,7 +2,7 @@ SDCC_FLAGS = -mz80 --no-std-crt0 --allow-unsafe-read --no-xinit-opt --opt-code-s
 SDCC = sdcc $(SDCC_FLAGS)
 SCREEN = python3 scripts/screen.py
 
-OBJS = crt0msx.32k.4000.rel main.rel msxhal.rel video.rel debug.rel input.rel uncompress.rel tiles.rel level.rel utils.rel
+OBJS = crt0msx.32k.4000.rel main.rel msxhal.rel video.rel debug.rel input.rel uncompress.rel tiles.rel level.rel utils.rel player.rel
 
 all: bin/k5link out.rom run
 

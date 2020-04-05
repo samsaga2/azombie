@@ -5,3 +5,4 @@
 USING_PAGE_C(level);
 
 void level_init();
+void level_random();

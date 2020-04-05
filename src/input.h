@@ -1,6 +1,7 @@
 #pragma once
 
 #include "msxhal.h"
+#include "bios.h"
 
 USING_PAGE_A(input);
 
@@ -22,3 +23,5 @@ USING_PAGE_A(input);
 */
 
 char input_get_key_row(char row) __z88dk_fastcall;
+
+char input_chget() __z88dk_fastcall;
