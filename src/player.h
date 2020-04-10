@@ -4,5 +4,10 @@
 
 USING_PAGE_C(player);
 
+extern char *player_pos;
+extern char player_bg;
+
+enum { ACTION_NONE, ACTION_STAIRS_DOWN };
+
 void player_init();
-void player_update(char key);
+int player_update(char key);

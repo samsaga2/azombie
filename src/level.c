@@ -4,6 +4,7 @@
 #include "bios.h"
 #include "../scr_tiles.h"
 #include "debug.h"
+#include "player.h"
 
 #define MAX_DEPTH 5
 #define ROOM_MARGIN 2
@@ -158,9 +159,24 @@ void level_decorate() {
       r = *(o+1) != 145;
       t = *(o-32) != 145;
       b = *(o+32) != 145;
-      if(l && r && !t && !b)
+      if(l && r && !t && !b) {
         // horizontal wall
-        *o = 129;
+        char i = random()&31;
+        switch(i) {
+        case 31:
+          *o = 194;
+          break;
+        case 30:
+          *o = 195;
+          break;
+        case 29:
+          *o = 161;
+          break;
+        default:
+          *o = 129;
+          break;
+        }
+      }
       else if(t && b && !l && !r)
         // vertical wall
         *o = 144;
@@ -190,6 +206,45 @@ void level_decorate() {
   }
 }
 
+void level_add_obstacles() {
+  char *o = offscreen;
+  for(int i = 0; i < 32*24; i++, o++) {
+    if(*o != 145 ||
+       *(o-32) == 164 || *(o+32) == 164 ||
+       *(o-33) == 177 || *(o+31) == 179 || *(o-32) == 177 || *(o+32) == 177 || *(o-32) == 192 || *(o-33) == 192)
+      continue;
+
+    switch((char)random()) {
+    case 0: *o = 167; break; // vessel
+    case 1: *o = 168; break; // vessel
+    case 2: *o = 169; break; // vessel
+    case 3: *o = 183; break; // table
+    }
+
+    random(); // why? because this random number generator sucks (but it's fast)
+  }
+}
+
+void level_add_stairs() {
+  char *pos;
+
+  // up stairs
+  do {
+    unsigned char i = (unsigned char)random();
+    pos = offscreen + i + 32;
+  } while(*pos != 145);
+  player_pos = pos;
+  player_bg = 181;
+  *pos = 132;
+
+  // down stairs
+  do {
+    unsigned char i = (unsigned char)random();
+    pos = offscreen + i + (31*24-255);
+  } while(*pos != 145);
+  *pos = 180;
+}
+
 void level_init() {
   tiles_uncompress(pat_tiles, col_tiles);
 }
@@ -199,4 +254,6 @@ void level_random() {
   level_gen_vroom(1, 1, 30, 22, 0);
   level_obstructed_doors();
   level_decorate();
+  level_add_obstacles();
+  level_add_stairs();
 }

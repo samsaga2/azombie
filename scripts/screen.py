@@ -11,7 +11,10 @@ def convert_tile_row(im, x, y):
     bg_color = 0
     fg_color = 15
 
-    assert(len(colors) <= 2)
+    if len(colors) > 2:
+        sys.stderr.write("Too many colors at row {}x{}\n".format(x, y))
+        sys.exit(1)
+        
     if len(colors) == 1:
         fg_color = 0
         bg_color = colors[0]

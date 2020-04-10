@@ -2,55 +2,74 @@
 #include "tiles.h"
 #include "debug.h"
 
-char player_x, player_y, player_sprite, player_bg;
+char player_sprite, player_bg;
+char *player_pos;
 
 void player_init() {
-  player_x = 1;
-  player_y = 1;
+  player_pos = offscreen + 1 + 32;
   player_sprite = 0;
   player_bg = 145;
-  offscreen[player_x + player_y * 32] = 132;
+  *player_pos = 132;
 }
 
-void player_update(char key) {
-  char *o = offscreen + player_x + player_y * 32;
+int player_update(char key) {
+  int dir = 0;
 
+  // input keys
   switch(key) {
   case 0x1e:
-    // move
-    if(*(o-32) == 145 || *(o-32) == 165)
-      player_y--;
-    // open door
-    if(*(o-32) == 164) {
-      *(o-32) = 165;
-      return;
-    }
+    dir = -32;
     break;
   case 0x1f:
-    // move
-    if(*(o+32) == 145 || *(o+32) == 165)
-      player_y++;
-    // open door
-    if(*(o+32) == 164) {
-      *(o+32) = 165;
-      return;
-    }
+    dir = 32;
     break;
   case 0x1d:
-    // move
-    if(*(o-1) == 145 || *(o-1) == 164)
-      player_x--;
+    dir = -1;
     break;
   case 0x1c:
-    // move
-    if(*(o+1) == 145 || *(o+1) == 164)
-      player_x++;
+    dir = 1;
     break;
   }
 
-  *o = player_bg;
-  o = offscreen + player_x + player_y * 32;
-  player_bg = *o;
-  *o = 132 + player_sprite;
+  // do player movement
+  int action = ACTION_NONE;
+  char next_tile = *(player_pos + dir);
+  switch(next_tile) {
+  case 145:
+  case 165:
+  case 181:
+    // no obstacle
+    break;
+  case 180:
+    action = ACTION_STAIRS_DOWN;
+    break;
+  case 164:
+    // open door
+    *(player_pos + dir) = 165;
+    break;
+  case 167:
+  case 168:
+  case 169:
+    // push vessel
+    if(*(player_pos + dir + dir) == 145) {
+      *(player_pos + dir) = 145;
+      *(player_pos + dir + dir) = next_tile;
+    } else
+      // cannot push it
+      dir = 0;
+    break;
+  default:
+    // obstacle, no player movement this turn
+    dir = 0;
+    break;
+  }
+
+  // update player pos
+  *player_pos = player_bg;
+  player_pos += dir;
+  player_bg = *player_pos;
+  *player_pos = 132 + player_sprite;
   player_sprite = (player_sprite + 1) & 1;
+
+  return action;
 }

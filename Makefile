@@ -4,11 +4,9 @@ SCREEN = python3 scripts/screen.py
 
 OBJS = crt0msx.32k.4000.rel main.rel msxhal.rel video.rel debug.rel input.rel uncompress.rel tiles.rel level.rel utils.rel player.rel
 
-all: bin/k5link out.rom run
+all: bin/k5link scr_tiles.h out.rom run
 
-convert: clean tilemaps
-
-tilemaps:
+scr_tiles.h: resources/tiles.png
 	$(SCREEN) resources/tiles.png > scr_tiles.h
 
 out.rom: $(OBJS)
