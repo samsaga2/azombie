@@ -6,7 +6,7 @@ void dbg_breakpoint() {
   __endasm;
 }
 
-void dbg_print(int i) {
+void dbg_print(int i) __z88dk_fastcall{ 
   __asm
   ld a,#0x60
   out (0x2e),a

@@ -29,29 +29,29 @@ void tiles_uncompress(char *patterns, char* colors) {
 
 char tiles_get(uint8_t x, uint8_t y) {
   __asm
-  ld iy,#2
-  add iy,sp
-  ld l,1(iy)
-  ld h,#0
-  add hl,hl
-  add hl,hl
-  add hl,hl
-  add hl,hl
-  add hl,hl
-  ld c,0(iy)
-  ld b,#0
-  add hl,bc
-  ld bc,#_offscreen
-  add hl,bc
-  ld l,(hl)
-  __endasm;
+    ld iy,#2
+    add iy,sp
+    ld l,1(iy)
+    ld h,#0
+    add hl,hl
+    add hl,hl
+    add hl,hl
+    add hl,hl
+    add hl,hl
+    ld c,0(iy)
+    ld b,#0
+    add hl,bc
+    ld bc,#_offscreen
+    add hl,bc
+    ld l,(hl)
+    __endasm;
 }
 
 void tiles_draw_offscreen() {
   __asm
-  ld bc,#32*24
-  ld hl,#_offscreen
-  ld de,#NAME_TABLE
-  call LDIRVM
-  __endasm;
+    ld bc,#32*24
+    ld hl,#_offscreen
+    ld de,#NAME_TABLE
+    call LDIRVM
+    __endasm;
 }

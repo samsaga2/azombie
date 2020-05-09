@@ -245,6 +245,17 @@ void level_add_stairs() {
   *pos = 180;
 }
 
+void level_add_enemies() {
+  char *o = offscreen;
+  for(int i = 0; i < 32*24; i++, o++) {
+    if(*o == 145) {
+      unsigned char i = (unsigned char)random();
+      if(i < 5)
+        *o = 148;
+    }
+  }
+}
+
 void level_init() {
   tiles_uncompress(pat_tiles, col_tiles);
 }
@@ -256,4 +267,5 @@ void level_random() {
   level_decorate();
   level_add_obstacles();
   level_add_stairs();
+  level_add_enemies();
 }

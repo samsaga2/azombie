@@ -46,7 +46,7 @@ int player_update(char key) {
   case 164:
     // open door
     *(player_pos + dir) = 165;
-    break;
+    return;
   case 167:
   case 168:
   case 169:
